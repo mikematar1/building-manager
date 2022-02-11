@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Home Page</title>
+
+{% endblock %}
+{% block body %}
+
+{% for x in apartments %}
+
+{% if x.status == 'occupied' %}
+<button style="background-color: red;font-weight: bold;color:white" onclick="window.location = 'http:/\/127.0.0.1:5000/apartment/{{x.id}}'">{{x.appname}}</button>
+{% elif status=='available' %}
+<button style="background-color: green;font-weight: bold;" onclick="window.location = 'http:/\/127.0.0.1:5000/apartment/{{x.id}}'">{{x.appname}}</button>
+{% else %}
+<button style="background-color: orange;font-weight: bold;" onclick="window.location = 'http:/\/127.0.0.1:5000/apartment/{{x.id}}'">{{x.appname}}</button>
+{% endif %}
+
+{% endfor %}
+<button onclick="window.location = 'http:/\/127.0.0.1:5000/melectricity'">Submit electricity Bill</button>
+<div>
+    <h1>Renters that are leaving</h1>
+<table class='styled-table'>
+    <tr>
+        <th>Apartment name</th>
+        <th>Renter Name</th>
+        <th>Renter Number</th>
+        <th>Due Date</th>
+        <th>extend</th>
+        <th>Free Up</th>
+    </tr>
+    {% for x in soonleaving%}
+        <tr>
+            <td>{{x.appname}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.number}}</td>
+            <td>{{x.duedate}}</td>
+            <td><button onclick="window.location = 'http:/\/127.0.0.1:5000/extend/{{x.id}}'">Extend Stay</button></td>
+            <td><button onclick="window.location = 'http:/\/127.0.0.1:5000/freeapp/{{x.id}}'">Remove Renter</button></td>
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
+
+<div>
+    <h1>Renters that should pay rent</h1>
+<table class='styled-table'>
+    <tr>
+        <th>Apartment name</th>
+        <th>Renter Name</th>
+        <th>Renter Number</th>
+        <th>Rent Date</th>
+        <th>Rent</th>
+        <th>Pay Rent</th>
+    </tr>
+    {% for x in soonrent%}
+        <tr>
+            <td>{{x.appname}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.number}}</td>
+            <td>{{x.nextpaymentdate}}</td>
+            <td>{{x.rent}}</td>
+            <td><button onclick="window.location = 'http:/\/127.0.0.1:5000/makerentpayment/{{x.id}}'">Submit Payment</button></td>
+        </tr>
+
+    {% endfor %}
+    {% for x in overduerent%}
+        <tr style="background-color: blue;">
+            <td>{{x.appname}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.number}}</td>
+            <td>{{x.nextpaymentdate}}</td>
+            <td>{{x.rent}}</td>
+            <td><button onclick="window.location = 'http:/\/127.0.0.1:5000/makerentpayment/{{x.id}}'">Submit Payment</button></td>
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
+{% endblock %} 

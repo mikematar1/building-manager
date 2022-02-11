@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Electricity Manager</title>
+<script>
+    function submitbill(id){
+        var val=document.getElementById(id).value
+        var kwhprice = "{{kwhprice}}"
+        window.location = 'http:/\/127.0.0.1:5000/'+'bill'+'/'+id+'/'+val + "/" + kwhprice
+    }
+</script>
+
+{% endblock %}
+{% block body %}
+<span id="currentkwhprice">kwh price: {{kwhprice}}</span>
+<button onclick = "document.getElementById('kwhprice').style.display='block';">change price</button>
+<form action="/changekwhprice" method="post" enctype="multipart/form-data" id="kwhprice" style="display: none;">
+    <input type="text" placeholder="new kwh price" name="kwhprice">
+    <input type="submit" value="change kwh price">
+</form>
+<table class="styled-table">
+    <tr>
+        <th>Name</th>
+        <th>Input kwh</th>
+        <th>submit kwh</th>
+    </tr>
+    {% for app in apps %}
+    <tr>
+        <td>{{app.appname}}</td>
+        <td><input placeholder="kwh" type='text' id="{{app.id}}"></td>
+        <td><button onclick="submitbill('{{app.id}}')" >submit {{app.appname}}</button></td>
+    </tr>
+    {% endfor %}
+</table>
+<form action="/">
+    <input type="submit" value="back to main page">
+</form>
+{% endblock %} 

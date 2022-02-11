@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<title>{{app.appname}}</title>
+{% endblock %}
+{% block body %}
+
+<input name="appid" style="display:none" type="text" value="{{app.id}}">
+<table class="styled-table">
+    <tr>
+        <td>name</td>
+        <td>{{app.name}}</td>
+        
+    </tr>
+    <tr>
+        <td>number</td>
+        <td>{{app.number}}</td>
+    <tr>
+        <td>date rented</td>
+        <td>{{app.daterented}}</td>
+    </tr>
+    <tr>
+        <td>due date</td>
+        <td>{{app.duedate}}</td>
+    </tr>
+    <tr>
+        <td>rent</td>
+        <td>{{app.rent}}</td>
+        
+    </tr>
+    <tr>
+        <td>deposit</td>
+        <td>{{app.deposit}}</td>
+        
+    </tr>
+    <tr>
+        <td>last kwh</td>
+        <td>{{app.lastkwh}}</td>
+        
+    </tr>
+    <tr>
+        <td>number of keys</td>
+        <td>{{app.nkeys}}</td>
+        
+    </tr>
+    <tr>
+        <td>has a car</td>
+        <td>{{app.hascar}}</td>
+        
+    </tr>
+    <tr>
+        <td>has a remote</td>
+        <td>{{app.hasremote}}</td>
+        
+    </tr>
+    <tr>
+        <td>status</td>
+        <td>{{app.status}}</td>
+        
+    </tr>
+    
+</table>
+<h2>Electricity Bills History for {{app.appname}}</h2>
+<table class="styled-table">
+    <tr>
+        <th>Date</th>
+        <th>Kwh</th>
+        <th>kwh price</th>
+        <th>Bill price</th>
+    </tr>
+    {% for bill in app.ebills %}
+    <tr>
+        <th>{{bill.date}}</th>
+        <th>{{bill.kwh}}</th>
+        <th>{{bill.kwhprice}}</th>
+        <th>{{bill.price}}</th>
+    </tr>
+
+    {% endfor %}
+</table>
+
+<form action="/changerenter/{{app.id}}">
+    <input type="submit" value="change renter">
+</form>
+<form action="/extend/{{app.id}}">
+    <input type="submit" value="extend stay">
+</form>
+<form action="/freeapp/{{app.id}}">
+    <input type="submit" value="Make available">
+</form>
+
+<button onclick ="document.getElementById('rentform').style.display='inline-block';">Change rent</button>
+<form action="/changerent/{{app.id}}" method='post' enctype="multipart/form-data" style="display: none;" id="rentform">
+    <input type="text" placeholder="new rent" name="newrent" required>
+    <input type="submit" value="change rent">
+</form>
+
+<form action="/">
+    <input type="submit" value="return to home page">
+</form>
+
+
+{% endblock %} 

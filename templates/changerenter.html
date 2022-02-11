@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>{{app.appname}}</title>
+{% endblock %}
+{% block body %}
+<form action="/makechanges" method='post' enctype="multipart/form-data">
+    <input type="text" value="{{app.id}}" name="appid" style="display: none;">
+    <input type="text" name="name" placeholder="name" required>
+    <input type="text" name="number" placeholder="number" required>
+    <input type="text" name="rent" placeholder="rent">
+    <input type="text" name="deposit" placeholder="deposit">
+    <input type="text" name="nkeys" placeholder="number of keys">
+    <input type="text" name="lastkwh" placeholder="kwh">'
+    <label for="ddate">Date rented</label>
+    <input type="date" id="ddate" name="ddate">
+    <label for="date">Due Date</label>
+    <input type="date" id="date" name="date">
+    <label for="hascar">Car:</label>
+    <select name="hascar" id="hascar">
+        <option value="no">no</option>
+        <option value="yes">yes</option>
+    </select>
+    <label for="hasremote">Remote:</label>
+    <select name="hasremote" id="hasremote">
+        <option value="no">no</option>
+        <option value="yes">yes</option>
+    </select>
+
+   <input type="submit" value="make changes">
+</form>
+{% endblock %} 
